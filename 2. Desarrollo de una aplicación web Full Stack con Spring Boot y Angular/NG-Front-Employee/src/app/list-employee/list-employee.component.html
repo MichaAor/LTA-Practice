@@ -1,0 +1,31 @@
+<h3>Employee List</h3>
+<table class="table table-borderless">
+  <thead class="table-info">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NAME</th>
+      <th scope="col">LASTNAME</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">ACTIONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emp of emps">
+      <td>{{emp.id}}</td>
+      <td>{{emp.name}}</td>
+      <td>{{emp.lastname}}</td>
+      <td>{{emp.email}}</td>
+      <td>
+        <a (click)="employeeUpd(emp.id)" class="btn btn-outline-warning" routerLinkActive="active" routerLink="upd-employee">
+          <i class="bi bi-person-up"></i>
+        </a>
+        <a (click)="employeeDel(emp.id)" class="btn btn-outline-danger" routerLinkActive="active" routerLink="del-employee">
+          <i class="bi bi-person-x"></i>
+        </a>
+        <a (click)="employeeGet(emp.id)" class="btn btn-outline-primary" routerLinkActive="active" routerLink="del-employee">
+          <i class="bi bi-person-vcard"></i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

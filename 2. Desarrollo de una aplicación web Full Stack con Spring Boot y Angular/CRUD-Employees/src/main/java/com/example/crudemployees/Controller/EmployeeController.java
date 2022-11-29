@@ -3,13 +3,14 @@ package com.example.crudemployees.Controller;
 import com.example.crudemployees.Model.Employee;
 import com.example.crudemployees.Service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
+@CrossOrigin(origins = "http://localhost:4200")
 public class EmployeeController {
     @Autowired
     private IEmployeeService es;
@@ -21,8 +22,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/{idE}")
-    public Optional<Employee> Get(@PathVariable("idE") Long idE){
-        return es.Get(idE);
+    public ResponseEntity<Employee> Get(@PathVariable("idE") Long idE){
+        return ResponseEntity.ok(es.Get(idE).get());
     }
 
     @PostMapping

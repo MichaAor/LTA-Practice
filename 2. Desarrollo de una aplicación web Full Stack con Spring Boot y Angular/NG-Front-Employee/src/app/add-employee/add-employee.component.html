@@ -1,0 +1,63 @@
+<div class="container-fluid">
+	<h3 class="text-center">Register Employee</h3>
+	<form (ngSubmit)="onSubmit()" method="post" class="was-validated" #empForm = "ngForm">
+
+		<div class="form-floating mb-3">
+			<input type="text" class="form-control" id="name" placeholder="Please enter your Name." [(ngModel)]="employee.name"
+				name="name"  minlength="4" maxlength="30" #name = "ngModel" required>
+			<label for="name">Name</label>
+			<div class="invalid-feedback" *ngIf="name.invalid &&(name.dirty || name.touched)">
+        <div *ngIf="name.errors?.['required']">
+          Please enter your Name.
+        </div>
+        <div *ngIf="name.errors?.['minlength']">
+          Please enter 4 characters minimum.
+        </div>
+        <div *ngIf="name.errors?.['maxlength']">
+          Please enter 30 characters max.
+        </div>
+			</div>
+		</div>
+
+		<div class="form-floating mb-3">
+			<input type="text" class="form-control" id="lastname" placeholder="Please enter your Lastname." [(ngModel)]="employee.lastname"
+				name="lastname" minlength="4" maxlength="30" #lastname = "ngModel" required>
+			<label for="lastname">Lastname</label>
+			<div class="invalid-feedback" *ngIf="lastname.invalid &&(lastname.dirty || lastname.touched)">
+        <div *ngIf="lastname.errors?.['required']">
+          Please enter your Lastname.
+        </div>
+        <div *ngIf="lastname.errors?.['minlength']">
+          Please enter 4 characters minimum.
+        </div>
+        <div *ngIf="lastname.errors?.['maxlength']">
+          Please enter 30 characters max.
+        </div>
+			</div>
+		</div>
+		<div class="form-floating mb-3">
+			<input type="email" class="form-control" id="email" placeholder="Please enter your Email." [(ngModel)]="employee.email"
+				name="email"  minlength="4" maxlength="30" #email = "ngModel"
+        pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required>
+			<label for="email">Email</label>
+			<div class="invalid-feedback" *ngIf="email.invalid &&(email.dirty || email.touched)">
+        <div *ngIf="email.errors?.['required']">
+          Please enter your Email.
+        </div>
+        <div *ngIf="email.errors?.['minlength']">
+          Please enter 4 characters minimum.
+        </div>
+        <div *ngIf="email.errors?.['maxlength']">
+          Please enter 30 characters max.
+        </div>
+        <div *ngIf="email.errors?.['pattern']">
+          Please enter email with the following format: name@email.com.
+        </div>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center">
+			<button type="reset" class="btn btn-primary">Reset</button>
+			<button type="submit" class="btn btn-primary" [disabled]="!empForm.form.valid">Submit</button>
+		</div>
+	</form>
+</div>

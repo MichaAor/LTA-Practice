@@ -2,11 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="index::head" />
 <body>
+<style>
+    @import url('https://fonts.cdnfonts.com/css/road-rage');
+    h4{
+        font-family: 'Road Rage', sans-serif;
+    }
+</style>
 <nav th:replace="index::navBar"/>
 <div class="container-fluid justify-content-center">
     <div class="row">
         <div th:if="${catL!=null}" class="col">
-            <h4 class="text-center" style="font-family: Road Rage">CATEGORY LIST</h4>
+            <h4 class="text-center">CATEGORY LIST</h4>
             <div class="p-3 text-center">
                 <table class="table table-borderless">
                     <thead>
@@ -21,7 +27,7 @@
                             <td th:text="${cat.id}"></td>
                             <td th:text="${cat.name}"></td>
                             <td>
-                                <a th:href="@{/categories/updC/{idC} (idC = ${cat.id})}" class="btn btn-outline-warning">
+                                <a th:href="@{/categories/upd/{idC} (idC = ${cat.id})}" class="btn btn-outline-warning">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                                 <a th:href="@{/categories/del/{idC} (idC = ${cat.id})}" class="btn btn-outline-danger">
@@ -35,38 +41,45 @@
         </div>
 
         <div th:if="${prodL!=null}" class="col">
-            <h4 class="text-center" style="font-family: Road Rage">PRODUCT LIST</h4>
+            <h4 class="text-center">PRODUCT LIST</h4>
             <div class="p-3 text-center">
                 <table class="table table-borderless">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>PRICE</th>
+                            <th>CATEGORY</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr th:each="prod : ${prodL}">
+                            <td th:text="${prod.id}"></td>
+                            <td th:text="${prod.name}"></td>
+                            <td th:text="${prod.price}"></td>
+                            <td th:text="${prod.category.name}"></td>
+                            <td>
+                                <a th:href="@{/products/upd/{idP} (idP = ${prod.id})}" class="btn btn-outline-warning">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a th:href="@{/products/del/{idP} (idP = ${prod.id})}" class="btn btn-outline-danger">
+                                    <i class="bi bi-xbox"></i>
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <div th:if="${brandL!=null}" class="col">
-            <h4 class="text-center" style="font-family: Road Rage">BRAND LIST</h4>
+            <h4 class="text-center">BRAND LIST</h4>
             <div class="p-3 text-center">
                 <table class="table table-borderless">
                     <thead>
                     <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>ID</th>
+                        <th>NAME</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -81,7 +94,7 @@
             </div>
         </div>
         <div th:if="${userL!=null}" class="col">
-            <h4 class="text-center" style="font-family: Road Rage">USER LIST</h4>
+            <h4 class="text-center">USER LIST</h4>
             <div class="p-3 text-center">
                 <table class="table table-borderless">
                     <thead>

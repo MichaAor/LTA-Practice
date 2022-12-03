@@ -1,4 +1,4 @@
-package com.lta.inventorymanagementapp.Model;
+package com.lta.invmanagapp.Model;
 
 public class Role {
 }

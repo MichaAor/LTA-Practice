@@ -19,10 +19,23 @@ public class CategoryController {
     return "ListPanel";
     }
 
+    @GetMapping("/upd/{idC}")
+    public String ViewpUpdCategory(Model model,@PathVariable("idC") Long idC){
+        model.addAttribute("cat",cs.Get(idC).get());
+    return "UpdatePanel";
+    }
+
     @PostMapping
     public String SaveCategory(@ModelAttribute("catN")Category catN){
             cs.Save(catN);
     return "redirect:/categories";
+    }
+    @PostMapping("/upd/{idC}")
+    public String SaveCategory(@PathVariable("idC")Long idC
+                              ,@ModelAttribute("catN")Category catN){
+        catN.setId(idC);
+        cs.Update(catN);
+        return "redirect:/categories";
     }
 
     @GetMapping("/del/{idC}")

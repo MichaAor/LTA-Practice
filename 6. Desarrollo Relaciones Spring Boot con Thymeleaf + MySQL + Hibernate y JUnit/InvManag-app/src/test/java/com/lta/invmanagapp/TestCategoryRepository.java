@@ -26,7 +26,7 @@ public class TestCategoryRepository {
 
     @Test
     public void TestCategoryUpdate(){
-        Category catN = cr.save(new Category(2L,"Tablet"));
+        //Category catN = cr.save(new Category(2L,"Tablet"));
     }
 
     @Test

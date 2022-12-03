@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 </head>
 <body>
+<style>
+    @import url('https://fonts.cdnfonts.com/css/road-rage');
+</style>
 <div class="container-fluid justify-content-center">
-    <h1 class="display-1 text-center" style="font-family: Road Rage"><em>INVENTORY MANAGEMENT📦</em></h1>
+    <h1 class="display-1 text-center" style="font-family: 'Road Rage'"><em>INVENTORY MANAGEMENT📦</em></h1>
     <nav th:fragment="navBar" class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">📦Home</a>
@@ -26,7 +29,8 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
+                            <i class="bi bi-chevron-bar-expand"></i>
+                            View Lists
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/categories}">Categories</a></li>
@@ -47,9 +51,9 @@
                 <h5 class="text-center">Register Category</h5>
                 <form th:action="@{/categories}" th:object="${catN}" method="post" class="was-validated" >
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" th:field="*{name}" id="nameN" placeholder="Enter Categ. Name"
-                               name="nameN" required>
-                        <label for="nameN">Name</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="nameC" placeholder="Enter Categ. Name"
+                               name="nameC" required>
+                        <label for="nameC">Name</label>
                         <div class="invalid-feedback">
                             Please enter your Category Name.
                         </div>
@@ -61,10 +65,76 @@
             </div>
         </div>
         <div class="col">
-            <div class="p-3">Row column</div>
+            <div class="p-3 justify-content-center">
+                <h5 class="text-center">Register Product</h5>
+                <form th:action="@{/products}" th:object="${prodN}" method="post" class="was-validated" >
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" th:field="*{name}" id="nameP" placeholder="Enter Product Name"
+                               name="nameP" required>
+                        <label for="nameP">Name</label>
+                        <div class="invalid-feedback">
+                            Please enter your Product Name.
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control"  id="priceP" th:placeholder="0"
+                               name="priceP" th:field="*{price}" min="1" required>
+                        <label for="priceP" >Price</label>
+                        <div class="invalid-feedback">
+                            Please enter your Product Price.
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="prodCat" name="prodCat" th:field="*{category}" required>
+                            <option value="">Open to select...</option>
+                            <option th:each="cat : ${catL}"
+                                    th:text="${cat.name}"
+                                    th:value="${cat.id} "
+                                    th:selected="false">
+                            </option>
+                        </select>
+                        <label for="prodCat">Category</label>
+                        <div class="invalid-feedback">
+                            Select the Category of your Product
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="col">
-            <div class="p-3">Row column</div>
+            <div class="p-3 justify-content-center">
+                <h5 class="text-center">Register Brand</h5>
+                <form th:action="@{/brands}" th:object="${brandN}" method="post" class="was-validated" >
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" th:field="*{name}" id="nameB" placeholder="Enter Brand Name"
+                               name="nameB" required>
+                        <label for="nameB">Name</label>
+                        <div class="invalid-feedback">
+                            Please enter your Category Name.
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="brandCat" name="brandCat" th:field="*{category}" required>
+                            <option value="">Open to select...</option>
+                            <option th:each="cat : ${catL}"
+                                    th:text="${cat.name}"
+                                    th:value="${cat.id} "
+                                    th:selected="false">
+                            </option>
+                        </select>
+                        <label for="brandCat">Category</label>
+                        <div class="invalid-feedback">
+                            Select the Category of your Product
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="col">
             <div class="p-3">Row column</div>

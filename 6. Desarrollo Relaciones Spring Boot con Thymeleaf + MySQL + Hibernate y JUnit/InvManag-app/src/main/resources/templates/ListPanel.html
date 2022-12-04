@@ -50,6 +50,7 @@
                             <th>NAME</th>
                             <th>PRICE</th>
                             <th>CATEGORY</th>
+                            <th>DETAILS</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
@@ -59,6 +60,13 @@
                             <td th:text="${prod.name}"></td>
                             <td th:text="${prod.price}"></td>
                             <td th:text="${prod.category.name}"></td>
+                            <td>
+                                <div class="row">
+                                    <div class="col" th:each="det:${prod.details}">
+                                        <p th:text="'■'+${det.name}+': '+${det.value}"></p>
+                                    </div>
+                                </div>
+                            </td>
                             <td>
                                 <a th:href="@{/products/upd/{idP} (idP = ${prod.id})}" class="btn btn-outline-warning">
                                     <i class="bi bi-pencil-square"></i>
@@ -80,14 +88,25 @@
                     <tr>
                         <th>ID</th>
                         <th>NAME</th>
+                        <th>CATEGORIES</th>
+                        <th>ACTION</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr th:each="brand : ${brandL}">
+                            <td th:text="${brand.id}"></td>
+                            <td th:text="${brand.name}"></td>
+                            <td>
+                                <span th:each="brandCN:${brand.category}" th:text="${brandCN.name} + '-'"></span>
+                            </td>
+                            <td>
+                                <a th:href="@{/brands/upd/{idB} (idB = ${brand.id})}" class="btn btn-outline-warning">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a th:href="@{/brands/del/{idB} (idB = ${brand.id})}" class="btn btn-outline-danger">
+                                    <i class="bi bi-xbox"></i>
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -99,20 +118,33 @@
                 <table class="table table-borderless">
                     <thead>
                     <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>ID</th>
+                        <th>EMAIL</th>
+                        <th>PASSWORD</th>
+                        <th>ROLES</th>
+                        <th>ACTIONS</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr th:each="user : ${userL}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.password}"></td>
+                            <td>
+                                <div class="row">
+                                    <div class="col" th:each="role:${user.roles}">
+                                        <p th:text="'■'+${role.name}"></p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a th:href="@{/users/upd/{idU} (idU = ${user.id})}" class="btn btn-outline-warning">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a th:href="@{/users/del/{idU} (idU = ${user.id})}" class="btn btn-outline-danger">
+                                    <i class="bi bi-xbox"></i>
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

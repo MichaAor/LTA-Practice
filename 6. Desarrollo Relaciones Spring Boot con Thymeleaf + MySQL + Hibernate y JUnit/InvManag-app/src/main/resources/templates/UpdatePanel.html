@@ -64,6 +64,30 @@
               Select the Category of your Product
             </div>
           </div>
+          <div class="form-group row" th:each="det,status : ${prod.details}">
+            <label><strong>Details #[[${status.count}]] : </strong></label>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="hidden" name="detId" th:value="${det.id}">
+                <input type="text" class="form-control" id="detN" th:placeholder="${det.name}"
+                       name="detN" th:value="${det.name}" required>
+                <label for="detN">Detail Name</label>
+                <div class="invalid-feedback">
+                  Please enter your Product Detail Name.
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control"  id="detV" th:placeholder="${det.value}"
+                       name="detV" th:value="${det.value}" required>
+                <label for="detV">Detail Value</label>
+                <div class="invalid-feedback">
+                  Please enter your Product Detail Value.
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
@@ -73,13 +97,71 @@
     <div th:if="${brand!=null}" class="col">
       <h4 class="text-center">BRAND UPDATE</h4>
       <div class="p-3 text-center">
-
+        <form th:action="@{'/brands/upd/' + ${brand.id}}" th:object="${brand}" method="post" class="was-validated" >
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:field="*{name}" id="nameB" th:placeholder="${brand.name}"
+                   name="nameB" required>
+            <label for="nameB">Name</label>
+            <div class="invalid-feedback">
+              Please enter your Category Name.
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <select class="form-select" id="brandCat" name="brandCat" th:field="*{category}" th:multiple="true" required>
+              <option th:each="cat : ${catL}"
+                      th:text="${cat.name}"
+                      th:value="${cat.id} "
+                      th:selected="false">
+              </option>
+            </select>
+            <label for="brandCat">Category</label>
+            <div class="invalid-feedback">
+              Select the Category of your Product
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
     <div th:if="${user!=null}" class="col">
       <h4 class="text-center">USER UPDATE</h4>
       <div class="p-3 text-center">
-
+        <form th:action="@{'/users/upd/'+${user.id}}" th:object="${user}" method="post" class="was-validated" >
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" th:field="*{email}" id="emailU" th:placeholder="${user.email}"
+                   name="emailU" required>
+            <label for="emailU">Email</label>
+            <div class="invalid-feedback">
+              Please enter your Email.
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" th:field="*{password}" id="passwordU" th:placeholder="${user.password}"
+                   th:value="${user.password}" name="passwordU" required>
+            <label for="passwordU">Password</label>
+            <div class="invalid-feedback">
+              Please enter your Password.
+            </div>
+          </div>
+          <div class="form-group row">
+            <label><strong>Roles</strong></label>
+            <div class="col" th:each="role:${roleL}">
+              <div class="form-check mb-3" >
+                <input type="checkbox" class="form-check-input"
+                       th:field="*{roles}" th:value="${role.id}" th:id="'role'+${role.id}">
+                <label class="form-check-label" th:for="'role'+${role.id}" th:text="${role.name}"></label>
+                <div class="invalid-feedback">
+                  Select the Roles of your User
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -36,6 +36,7 @@
                             <li><a class="dropdown-item" th:href="@{/categories}">Categories</a></li>
                             <li><a class="dropdown-item" th:href="@{/products}">Products</a></li>
                             <li><a class="dropdown-item" th:href="@{/users}">Users</a></li>
+                            <li><a class="dropdown-item" th:href="@{/brands}">Brands</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -98,6 +99,50 @@
                             Select the Category of your Product
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label><strong>Details 1</strong></label>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="detN" placeholder="Enter Detail Name"
+                                       name="detN" required>
+                                <label for="detN">Detail Name</label>
+                                <div class="invalid-feedback">
+                                    Please enter your Product Detail Name.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control"  id="detV" placeholder="Enter Product Name"
+                                       name="detV" required>
+                                <label for="detV">Detail Value</label>
+                                <div class="invalid-feedback">
+                                    Please enter your Product Detail Value.
+                                </div>
+                            </div>
+                        </div>
+                        <label><strong>Details 2</strong></label>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="detN" placeholder="Enter Detail Name"
+                                       name="detN" required>
+                                <label for="detN">Detail Name</label>
+                                <div class="invalid-feedback">
+                                    Please enter your Product Detail Name.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control"  id="detV" placeholder="Enter Product Name"
+                                       name="detV" required>
+                                <label for="detV">Detail Value</label>
+                                <div class="invalid-feedback">
+                                    Please enter your Product Detail Value.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -113,12 +158,11 @@
                                name="nameB" required>
                         <label for="nameB">Name</label>
                         <div class="invalid-feedback">
-                            Please enter your Category Name.
+                            Please enter your Brand Name.
                         </div>
                     </div>
-                    <div class="form-floating mb-3">
-                        <select class="form-select" id="brandCat" name="brandCat" th:field="*{category}" required>
-                            <option value="">Open to select...</option>
+                    <div class="mb-3">
+                        <select class="form-select" id="brandCat" name="brandCat" th:field="*{category}" th:multiple="true" required>
                             <option th:each="cat : ${catL}"
                                     th:text="${cat.name}"
                                     th:value="${cat.id} "
@@ -137,7 +181,43 @@
             </div>
         </div>
         <div class="col">
-            <div class="p-3">Row column</div>
+            <div class="p-3 justify-content-center">
+                <h5 class="text-center">Register User</h5>
+                <form th:action="@{/users}" th:object="${userN}" method="post" class="was-validated" >
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" th:field="*{email}" id="emailU" placeholder="Enter Email"
+                               name="emailU" required>
+                        <label for="emailU">Email</label>
+                        <div class="invalid-feedback">
+                            Please enter your Email.
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" th:field="*{password}" id="passwordU" placeholder="Enter Password"
+                               name="passwordU" required>
+                        <label for="passwordU">Password</label>
+                        <div class="invalid-feedback">
+                            Please enter your Password.
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label><strong>Roles</strong></label>
+                        <div class="col" th:each="role:${roleL}">
+                            <div class="form-check mb-3" >
+                                <input type="checkbox" class="form-check-input"
+                                       th:field="*{roles}" th:value="${role.id}" th:id="'role'+${role.id}">
+                                <label class="form-check-label" th:for="'role'+${role.id}" th:text="${role.name}"></label>
+                                <div class="invalid-feedback">
+                                    Select the Roles of your User
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

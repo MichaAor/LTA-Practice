@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/products")
 public class ProductController {
@@ -31,15 +33,27 @@ public class ProductController {
     }
 
     @PostMapping
-    public String SaveProduct(@ModelAttribute("prodN") Product product){
+    public String SaveProduct(@ModelAttribute("prodN") Product product, HttpServletRequest request){
+        String[] detailsNames = request.getParameterValues("detN");
+        String[] detailsValues = request.getParameterValues("detV");
+        for(int i=0; i< detailsNames.length;i++){
+            product.addDetails(detailsNames[i],detailsValues[i]);
+        }
         iPs.Save(product);
     return "redirect:/products";
     }
 
     @PostMapping("/upd/{idP}")
     public String UpdateProduct(@PathVariable("idP") Long idP,
-                                @ModelAttribute("prod") Product product ){
+                                @ModelAttribute("prod") Product product
+                                ,HttpServletRequest request){
+        String[] detailsId = request.getParameterValues("detId");
+        String[] detailsNames = request.getParameterValues("detN");
+        String[] detailsValues = request.getParameterValues("detV");
         product.setId(idP);
+        for(int i=0; i< detailsNames.length;i++){
+            product.setDetail(Long.valueOf(detailsId[i]),detailsNames[i],detailsValues[i]);
+        }
         iPs.Update(product);
     return "redirect:/products";
     }

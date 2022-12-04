@@ -6,10 +6,7 @@ import com.lta.invmanagapp.Service.IService.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/brands")
@@ -26,10 +23,29 @@ public class BrandController {
     return "ListPanel";
     }
 
+    @GetMapping("/upd/{idB}")
+    public String ViewUpdBrand(Model model, @PathVariable("idB")Long idB){
+        model.addAttribute("brand",iBs.Get(idB).get());
+        model.addAttribute("catL",iCs.GetAll());
+    return "UpdatePanel";
+    }
+
     @PostMapping
     public String SaveBrand(@ModelAttribute("brandN")Brand brand){
         iBs.Save(brand);
     return "redirect:/brands";
     }
 
+    @PostMapping("/upd/{idB}")
+    public String UpdateBrand(@PathVariable("idB") Long idB,@ModelAttribute("Brand") Brand brand){
+        brand.setId(idB);
+        iBs.Update(brand);
+    return "redirect:/brands";
+    }
+
+    @GetMapping("/del/{idB}")
+    public String DeleteBrand(@PathVariable("idB") Long idB){
+        iBs.Delete(idB);
+    return "redirect:/brands";
+    }
 }

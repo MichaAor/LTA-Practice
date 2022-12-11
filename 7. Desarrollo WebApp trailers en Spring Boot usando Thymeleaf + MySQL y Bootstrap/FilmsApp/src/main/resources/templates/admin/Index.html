@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml">
+<head th:replace="Master::head">
+<body>
+<header th:replace="Master:: header"></header>
+
+<div class="container-fluid" th:fragment="content">
+    <h2>Films</h2>
+    <div class="text-end">
+        <a th:href="@{/admin/addF}"  class="btn btn-warning mb-3">
+            <i class='bx bx-film bx-spin' >+</i>
+        </a>
+    </div>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>Cover</th>
+                <th>Film</th>
+                <th>Release Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="film : ${filmL}" th:object="${film}">
+                <td style="width:150px;">
+                    <a th:href="@{/assets/{filename} (filename = *{coverUrl})}" data-fancybox>
+                        <img th:src=" @{/assets/{filename} (filename = *{coverUrl})}"
+                             alt="" class="img-thumbnail w-100">
+                    </a>
+                </td>
+                <td>
+                    <div class="fs-5 fw-bold" th:text="*{title}"></div>
+                    <p th:text="*{overview}"></p>
+                    <div>
+                        <span class="badge text-bg-info me-2"
+                              th:each="genre : *{genres}" th:text="${genre.name}"></span>
+                    </div>
+                </td>
+                <td th:text="*{#temporals.format(releaseD,'dd/MM/yyyy')}"></td>
+                <td>
+                    <a th:href="@{/admin/editF/{idF} (idF = ${film.id})}" class="btn btn-outline-warning">
+                        <i class='bx bx-edit'></i>
+                    </a>
+                    <a href="javascript:void(0)" class="btn btn-outline-danger"
+                       th:onclick="'deleteFilm('+*{id}+')'">
+                        <i class='bx bx-x-circle'></i>
+                        <form th:action="@{'/admin/delF/'+*{id}}" th:id="'deleteFilmForm'+*{id}"></form>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row-5" th:with="page=${filmL}">
+        <div class="col-sm-6">
+            <div sd:pagination-summary>
+            </div>
+            <div class="col-sm-6">
+                <nav>
+                    <ul class="pagination" sd:pagination="full"></ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div th:replace="Master::scripts"></div>
+</body>
+</html>

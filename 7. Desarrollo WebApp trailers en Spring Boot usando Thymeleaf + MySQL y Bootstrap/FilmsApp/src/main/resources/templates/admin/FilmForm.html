@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Master::head">
+<body>
+<header th:replace="Master::header"></header>
+    <div th:unless="${filmN}" class="p-3 justify-content-center">
+        <h5 class="text-center">Register Film</h5>
+        <form th:action="@{/admin/addF}" th:object="${film}" method="post" class="was-validated" enctype="multipart/form-data" >
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" th:field="*{title}" id="title" placeholder="Enter Title"
+                       name="title" required>
+                <label for="title">Title</label>
+                <div class="invalid-feedback">
+                    <p th:unless="${#fields.hasErrors('title')}" th:errors="*{title}"> Please enter Title.</p>
+                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+            <textarea class="form-control" th:field="*{overview}" id="overview" placeholder="Enter Overview"
+                      name="overview" required></textarea>
+                <label for="overview">Overview</label>
+                <div class="invalid-feedback">
+                    <p th:unless="${#fields.hasErrors('overview')}" th:errors="*{overview}"> Please enter Overview.</p>
+                    <p th:if="${#fields.hasErrors('overview')}" th:errors="*{overview}"></p>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" th:field="*{releaseD}" id="releaseD" placeholder="Enter Release Date"
+                       name="releaseD" required>
+                <label for="releaseD">Release Date</label>
+                <div class="invalid-feedback">
+                    <p th:unless="${#fields.hasErrors('releaseD')}" th:errors="*{releaseD}"> Please enter Release Date.</p>
+                    <p th:if="${#fields.hasErrors('releaseD')}" th:errors="*{releaseD}"></p>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" th:field="*{ytVID}" id="ytVID" placeholder="Enter YT Link"
+                       name="ytVID" required>
+                <label for="ytVID">YT Link</label>
+                <div class="invalid-feedback">
+                    <p th:unless="${#fields.hasErrors('ytVID')}" th:errors="*{ytVID}"> Please enter YouTube Trailer Link.</p>
+                    <p th:if="${#fields.hasErrors('ytVID')}" th:errors="*{ytVID}"></p>
+                </div>
+            </div>
+            <div class="form-file">
+                <input type="file" class="form-control" th:field="*{cover}" id="cover" placeholder="Enter Cover"
+                       name="cover" required>
+                <div class="invalid-feedback">
+                    <p th:unless="${#fields.hasErrors('cover')}" th:errors="*{cover}"> Please input cover.</p>
+                    <p th:if="${#fields.hasErrors('cover')}" th:errors="*{cover}"></p>
+                </div>
+            </div>
+            <div class="form mb-3">
+                <label class="form-label" for="genres"><Strong>Genres</Strong></label>
+                <select id="genres" class="form-select" th:field="*{genres}" multiple>
+                    <option th:each="genre:${genreL}" th:value="${genre.id}" th:text="${genre.name}"></option>
+                </select>
+                <div class="invalid-feedback">
+                    <p th:if="${#fields.hasErrors('genres')}" th:errors="*{genres}"></p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+<div th:if="${filmN}" class="p-3 justify-content-center">
+    <h5 class="text-center">Edit Film</h5>
+    <form th:action="@{'/admin/editF/'+${filmN.id}}" th:object="${filmN}" method="post" class="was-validated" enctype="multipart/form-data" >
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:field="*{title}" id="titleN" placeholder="Enter Title"
+                   name="titleN" required>
+            <label for="titleN">Title</label>
+            <div class="invalid-feedback">
+                <p th:unless="${#fields.hasErrors('title')}" th:errors="*{title}"> Please enter Title.</p>
+                <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <textarea class="form-control" th:field="*{overview}" id="overviewN" placeholder="Enter Overview"
+                      name="overviewN" required></textarea>
+            <label for="overviewN">Overview</label>
+            <div class="invalid-feedback">
+                <p th:unless="${#fields.hasErrors('overview')}" th:errors="*{overview}"> Please enter Overview.</p>
+                <p th:if="${#fields.hasErrors('overview')}" th:errors="*{overview}"></p>
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" th:field="*{releaseD}" id="releaseDN" placeholder="Enter Release Date"
+                   name="releaseDN" required>
+            <label for="releaseDN">Release Date</label>
+            <div class="invalid-feedback">
+                <p th:unless="${#fields.hasErrors('releaseD')}" th:errors="*{releaseD}"> Please enter Release Date.</p>
+                <p th:if="${#fields.hasErrors('releaseD')}" th:errors="*{releaseD}"></p>
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:field="*{ytVID}" id="ytVIDN" placeholder="Enter YT Link"
+                   name="ytVIDN" required>
+            <label for="ytVIDN">YT Link</label>
+            <div class="invalid-feedback">
+                <p th:unless="${#fields.hasErrors('ytVID')}" th:errors="*{ytVID}"> Please enter YouTube Trailer Link.</p>
+                <p th:if="${#fields.hasErrors('ytVID')}" th:errors="*{ytVID}"></p>
+            </div>
+        </div>
+        <div class="form-file">
+            <input type="file" class="form-control" th:field="*{cover}" id="coverN" placeholder="Enter Cover"
+                   name="coverN" required>
+            <div class="invalid-feedback">
+                <p th:unless="${#fields.hasErrors('cover')}" th:errors="*{cover}"> Please input cover.</p>
+                <p th:if="${#fields.hasErrors('cover')}" th:errors="*{cover}"></p>
+            </div>
+        </div>
+        <div class="form mb-3">
+            <label class="form-label" for="genresN"><Strong>Genres</Strong></label>
+            <select id="genresN" class="form-select" th:field="*{genres}" multiple>
+                <option th:each="genre:${genreL}" th:value="${genre.id}" th:text="${genre.name}"></option>
+            </select>
+            <div class="invalid-feedback">
+                <p th:if="${#fields.hasErrors('genres')}" th:errors="*{genres}"></p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+<div th:insert="Master::scripts"></div>
+</body>
+</html>

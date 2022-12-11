@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml">
+<head th:replace="Master::head">
+<body>
+<header th:replace="Master:: header"></header>
+
+<div class="container-fluid" >
+    <div class="bg-light rounded">
+        <h1 class="display-1 text-info">Welcome to FilmApp</h1>
+        <h2>Discover New Trailers</h2>
+    </div>
+    <h4>Last release</h4>
+    <div class="row">
+        <div class="col-md-3 my-5" th:each="film: ${lastFL}" th:object="${film}">
+            <a th:href="'https://www.youtube.com/watch?v='+*{ytVID}">
+                <img th:src=" @{/assets/{filename} (filename = *{coverUrl})}"
+                    th:alt="*{title}" class="card-img-top">
+                <div class="card-body">
+                    <h2 class="card-title fs-6" th:text="*{title}"></h2>
+                    <p th:text="*{#temporals.format(releaseD,'dd/MM/yyyy')}" class="text-muted small"></p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</div>
+<div th:replace="Master::scripts"></div>
+</body>
+</html>

@@ -8,6 +8,7 @@ import com.lta.blogapirest.Model.Publication;
 import com.lta.blogapirest.Repository.CommentaryRepository;
 import com.lta.blogapirest.Repository.PublicationRepository;
 import com.lta.blogapirest.Service.Interface.ICommentaryService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class CommentaryService implements ICommentaryService {
     private CommentaryRepository cr;
     @Autowired
     private PublicationRepository pr;
+
+    @Autowired
+    private ModelMapper mmp;
 
 
     @Override
@@ -82,18 +86,10 @@ public class CommentaryService implements ICommentaryService {
 
 
     private CommentaryDTO mapperToDTO(Commentary commentary){
-        CommentaryDTO comDTO = new CommentaryDTO(commentary.getContent(), commentary.getEmail(), commentary.getName());
-        if(commentary.getId() != null){
-            comDTO.setId(commentary.getId());
-        }
-    return comDTO;
+    return mmp.map(commentary,CommentaryDTO.class);
     }
 
     private Commentary mapperToEntity(CommentaryDTO comDTO){
-        Commentary commentary = new Commentary(comDTO.getContent(),comDTO.getEmail(),comDTO.getName());
-        if(comDTO.getId() != null){
-            commentary.setId(comDTO.getId());
-        }
-    return commentary;
+    return mmp.map(comDTO,Commentary.class);
     }
 }

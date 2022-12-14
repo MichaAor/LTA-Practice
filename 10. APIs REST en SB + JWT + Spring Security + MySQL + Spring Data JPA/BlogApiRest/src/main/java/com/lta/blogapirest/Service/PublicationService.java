@@ -6,6 +6,7 @@ import com.lta.blogapirest.Exceptions.ResourceNotFoundException;
 import com.lta.blogapirest.Model.Publication;
 import com.lta.blogapirest.Repository.PublicationRepository;
 import com.lta.blogapirest.Service.Interface.IPublicationService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,9 @@ import java.util.stream.Collectors;
 public class PublicationService implements IPublicationService {
     @Autowired
     private PublicationRepository pr;
+
+    @Autowired
+    private ModelMapper mmp;
 
     @Override
     public List<PublicationDTO> GetAll(int pageN, int pageS) {
@@ -78,18 +82,10 @@ public class PublicationService implements IPublicationService {
     }
 
     private PublicationDTO mapperToDTO(Publication pb){
-        PublicationDTO pDTO = new PublicationDTO(pb.getTitle(),pb.getDescription(),pb.getContent());
-        if(pb.getId() != null){
-            pDTO.setId(pb.getId());
-        }
-        return pDTO;
+        return mmp.map(pb,PublicationDTO.class);
     }
     private Publication mapperToEntity(PublicationDTO pDTO){
-        Publication pub = new Publication(pDTO.getTitle(),pDTO.getDescription(),pDTO.getContent());
-        if(pDTO.getId() != null){
-            pub.setId(pDTO.getId());
-        }
-        return pub;
+        return mmp.map(pDTO,Publication.class);
     }
 
 }

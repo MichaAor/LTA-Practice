@@ -1,5 +1,6 @@
 package com.lta.blogapirest.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,10 @@ public class Publication {
     @Column(nullable = false)
     private String content;
 
+     //Evita el error cuando se hace llamado en anidamiento(para este caso,
+     // se llama a comentarios desde publicacion y luego en comentarios se trae la misma publicacion muchas veces
+    // lo cual rompe en un ciclo infinito.
+    @JsonBackReference
     @OneToMany(mappedBy = "publication",cascade = CascadeType.ALL,orphanRemoval = true) //orphanRemoval = true elimina
     private Set<Commentary> commentaries;                                               //todo el contenido mas sus asociados
 

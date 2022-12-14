@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -23,6 +24,9 @@ public class Publication {
     private String description;
     @Column(nullable = false)
     private String content;
+
+    @OneToMany(mappedBy = "publication",cascade = CascadeType.ALL,orphanRemoval = true) //orphanRemoval = true elimina
+    private Set<Commentary> commentaries;                                               //todo el contenido mas sus asociados
 
     public Publication(String title,String description,String content){
         this.title = title;

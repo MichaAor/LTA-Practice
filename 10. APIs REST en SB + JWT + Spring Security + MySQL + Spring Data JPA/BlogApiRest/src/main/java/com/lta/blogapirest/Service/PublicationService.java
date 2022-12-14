@@ -77,14 +77,14 @@ public class PublicationService implements IPublicationService {
         pr.delete(pr.findById(idP).orElseThrow(()->new ResourceNotFoundException("Publication","id",idP)));
     }
 
-    public PublicationDTO mapperToDTO(Publication pb){
+    private PublicationDTO mapperToDTO(Publication pb){
         PublicationDTO pDTO = new PublicationDTO(pb.getTitle(),pb.getDescription(),pb.getContent());
         if(pb.getId() != null){
             pDTO.setId(pb.getId());
         }
         return pDTO;
     }
-    public Publication mapperToEntity(PublicationDTO pDTO){
+    private Publication mapperToEntity(PublicationDTO pDTO){
         Publication pub = new Publication(pDTO.getTitle(),pDTO.getDescription(),pDTO.getContent());
         if(pDTO.getId() != null){
             pub.setId(pDTO.getId());

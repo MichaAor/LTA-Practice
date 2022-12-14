@@ -2,6 +2,7 @@ package com.lta.blogapirest.Controller;
 
 import com.lta.blogapirest.DTO.PublicationDTO;
 import com.lta.blogapirest.Service.Interface.IPublicationService;
+import com.lta.blogapirest.Utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,14 @@ public class PublicationController {
 
     @GetMapping("/rtr")
     public ResponseEntity<?> GetAllRTR(
-            @RequestParam(value = "pageN",defaultValue = "0",required = false) int pageN,
-            @RequestParam(value = "pageS",defaultValue = "10",required = false) int pageS,
-            @RequestParam(value = "sortBy",defaultValue = "id",required = false) String sortBy,
-            @RequestParam(value = "sortDir",defaultValue = "asc",required = false)String sorDir){
+            @RequestParam(value = "pageN",defaultValue = AppConstants.D_PAGE_N
+                    ,required = false) int pageN,
+            @RequestParam(value = "pageS",defaultValue = AppConstants.D_PAGE_S
+                    ,required = false) int pageS,
+            @RequestParam(value = "sortBy",defaultValue = AppConstants.D_SORT_BY
+                    ,required = false) String sortBy,
+            @RequestParam(value = "sortDir",defaultValue = AppConstants.D_SORT_DIR
+                    ,required = false)String sorDir){
         return ResponseEntity.ok(ips.GetAllRTR(pageN,pageS,sortBy,sorDir));
     }
 

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/commentaries")
 public class CommentaryController {
@@ -24,13 +26,13 @@ public class CommentaryController {
     }
 
     @PostMapping("/{idP}")
-    public ResponseEntity<?> Save(@PathVariable("idP")Long idP, @RequestBody CommentaryDTO comDTO){
+    public ResponseEntity<?> Save(@PathVariable("idP")Long idP,@Valid @RequestBody CommentaryDTO comDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(ics.Save(idP,comDTO));
     }
 
     @PutMapping("/{idC}/publication/{idP}")
     public ResponseEntity<?> Update(@PathVariable("idC")Long idC,@PathVariable("idP")Long idP
-                                    ,@RequestBody CommentaryDTO comDTO){
+                                    ,@Valid @RequestBody CommentaryDTO comDTO){
         return ResponseEntity.ok(ics.Update(idC,idP,comDTO));
     }
 

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/publications")
 public class PublicationController {
@@ -40,12 +42,12 @@ public class PublicationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> Save(@RequestBody PublicationDTO pDTO){
+    public ResponseEntity<?> Save(@Valid @RequestBody PublicationDTO pDTO){
     return ResponseEntity.status(HttpStatus.CREATED).body(ips.Save(pDTO));
     }
 
     @PutMapping("/{idP}")
-    public ResponseEntity<?> Update(@PathVariable("idP") Long idP,@RequestBody PublicationDTO pDTO){
+    public ResponseEntity<?> Update(@PathVariable("idP") Long idP,@Valid @RequestBody PublicationDTO pDTO){
         return ResponseEntity.ok().body(ips.Update(pDTO,idP));
     }
 

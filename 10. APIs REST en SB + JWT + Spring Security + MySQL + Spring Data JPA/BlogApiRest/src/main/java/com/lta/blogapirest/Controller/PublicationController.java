@@ -6,6 +6,7 @@ import com.lta.blogapirest.Utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,6 +42,7 @@ public class PublicationController {
         return ResponseEntity.ok().body(ips.Get(idP));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")   //filtra el acceso segun role
     @PostMapping
     public ResponseEntity<?> Save(@Valid @RequestBody PublicationDTO pDTO){
     return ResponseEntity.status(HttpStatus.CREATED).body(ips.Save(pDTO));
@@ -51,6 +53,7 @@ public class PublicationController {
         return ResponseEntity.ok().body(ips.Update(pDTO,idP));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{idP}")
     public ResponseEntity<?> Delete(@PathVariable("idP") Long idP){
         ips.Delete(idP);

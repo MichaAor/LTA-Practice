@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+  <header th:replace="layout/layout :: header"></header>
+
+  <div class="p-3 text-center">
+    <h2 th:text="${title}"></h2>
+    <h4>
+      <a th:href="@{/form}" class="btn btn-primary">Add Employee</a>
+      <a th:href="@{/expEX}" class="btn btn-success">Export Excel</a>
+      <a th:href="@{/expPDF}" class="btn btn-danger">Export PDF</a>
+    </h4>
+    <table class="table table-borderless">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>SURNAME</th>
+        <th>EMAIL</th>
+        <th>PHONE</th>
+        <th>SEX</th>
+        <th>SALARY</th>
+        <th>DATE</th>
+        <th>ACTIONS</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="employee: ${employees}">
+        <td th:text="${employee.id}"></td>
+        <td th:text="${employee.name}"></td>
+        <td th:text="${employee.surname}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.phone}"></td>
+        <td th:text="${employee.sex}"></td>
+        <td th:text="${employee.salary}"></td>
+        <td th:text="${employee.date}"></td>
+        <td>
+          <a th:href="@{/employees/{idC} (idC = ${employee.id})}" class="btn btn-outline-info">
+            <i class="bi bi-code-square"></i>
+          </a>
+          <a th:href="@{/edit/{idC} (idC = ${employee.id})}" class="btn btn-outline-warning">
+            <i class="bi bi-pencil-square"></i>
+          </a>
+          <a th:href="@{/delete/{idC} (idC = ${employee.id})}" class="btn btn-outline-danger"
+             onclick="javascript:return confirm('Are you sure you want to delete this?')">
+            <i class="bi bi-xbox"></i>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <nav th:replace="paginator-nav :: paginator"></nav>
+  </div>
+
+</body>
+</html>
